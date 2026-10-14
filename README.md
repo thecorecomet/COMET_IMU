@@ -7,7 +7,7 @@
 
 A unified, high-performance C++ IMU library featuring **automatic bus detection (I2C & SPI)**, **on-chip hardware sensor fusion offloading**, fallback **Madgwick, Mahony, Kalman, and Complementary 6/9-DoF AHRS filters**, and **concurrent multi-IMU orchestration**. Designed for **ESP32**, **STM32**, and **classic Arduino** microcontrollers.
 
-- **Author**: Bhushan Patil ([bhushanshampatil@gmail.com](mailto:bhushanshampatil@gmail.com))
+- **Author**: Bhushan Patil ([contact.corecomet@gmail.com](mailto:contact.corecomet@gmail.com))
 - **Repository**: [https://github.com/thecorecomet/COMET_IMU.git](https://github.com/thecorecomet/COMET_IMU.git)
 
 ---
