@@ -1,0 +1,77 @@
+#######################################
+# Syntax Highlighting for COMET_IMU
+#######################################
+
+#######################################
+# Datatypes and Classes (KEYWORD1)
+#######################################
+COMET_IMU	KEYWORD1
+UnifiedIMU	KEYWORD1
+Quaternion	KEYWORD1
+EulerAngles	KEYWORD1
+Vector3	KEYWORD1
+SensorData	KEYWORD1
+IMUType	KEYWORD1
+FusionMode	KEYWORD1
+BusType	KEYWORD1
+BaseIMUDriver	KEYWORD1
+BusInterface	KEYWORD1
+I2CBus	KEYWORD1
+SPIBus	KEYWORD1
+BusDetector	KEYWORD1
+MadgwickFilter	KEYWORD1
+MahonyFilter	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+autoDetect	KEYWORD2
+autoDetectSPI	KEYWORD2
+begin	KEYWORD2
+beginI2C	KEYWORD2
+beginSPI	KEYWORD2
+update	KEYWORD2
+calibrateGyro	KEYWORD2
+calibrateAccel	KEYWORD2
+getQuaternion	KEYWORD2
+getEuler	KEYWORD2
+getAccel	KEYWORD2
+getGyro	KEYWORD2
+getMag	KEYWORD2
+getLinearAccel	KEYWORD2
+getGravity	KEYWORD2
+getTemperature	KEYWORD2
+hasHardwareFusion	KEYWORD2
+getFusionMode	KEYWORD2
+setFusionMode	KEYWORD2
+getSensorName	KEYWORD2
+getDetectedType	KEYWORD2
+getBusType	KEYWORD2
+is9DOF	KEYWORD2
+toDegrees	KEYWORD2
+toRadians	KEYWORD2
+
+#######################################
+# Constants and Enums (LITERAL1)
+#######################################
+IMU_UNKNOWN	LITERAL1
+IMU_MPU6050	LITERAL1
+IMU_MPU6500	LITERAL1
+IMU_MPU9250	LITERAL1
+IMU_ICM20948	LITERAL1
+IMU_ICM42688	LITERAL1
+IMU_BNO055	LITERAL1
+IMU_BNO080	LITERAL1
+IMU_BNO085	LITERAL1
+IMU_BMI160	LITERAL1
+IMU_BMI270	LITERAL1
+IMU_LSM6DSOX	LITERAL1
+IMU_LSM6DS3	LITERAL1
+IMU_LSM9DS1	LITERAL1
+FUSION_AUTO	LITERAL1
+FUSION_HARDWARE	LITERAL1
+FUSION_MADGWICK	LITERAL1
+FUSION_MAHONY	LITERAL1
+FUSION_OFF	LITERAL1
+BUS_I2C	LITERAL1
+BUS_SPI	LITERAL1

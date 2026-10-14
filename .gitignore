@@ -1,0 +1,20 @@
+# PlatformIO
+.pio
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+
+# Arduino build cache
+build/
+*.hex
+*.elf
+*.bin
+
+# IDE and OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
