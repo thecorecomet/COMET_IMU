@@ -34,6 +34,8 @@ enum FusionMode {
     FUSION_HARDWARE,     // Require on-chip hardware fusion (BNO055, BNO08x, DMP)
     FUSION_MADGWICK,     // Software Madgwick 6-DOF / 9-DOF AHRS filter
     FUSION_MAHONY,       // Software Mahony 6-DOF / 9-DOF AHRS filter
+    FUSION_KALMAN,       // Software Kalman 6-DOF / 9-DOF AHRS filter
+    FUSION_COMPLEMENTARY,// Software Complementary 6-DOF / 9-DOF AHRS filter
     FUSION_OFF           // Raw data only, no orientation computation
 };
 

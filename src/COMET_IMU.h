@@ -13,6 +13,8 @@
 #include "fusion/SensorFusion.h"
 #include "fusion/MadgwickFilter.h"
 #include "fusion/MahonyFilter.h"
+#include "fusion/KalmanFilter.h"
+#include "fusion/ComplementaryFilter.h"
 #include "drivers/BaseIMUDriver.h"
 
 class COMET_IMU {
@@ -106,6 +108,7 @@ public:
     // Sensor Fusion Mode configuration
     void setFusionMode(FusionMode mode);
     FusionMode getFusionMode() const { return _config.fusionMode; }
+    void setCustomFusion(SensorFusion* fusion, bool takeOwnership = false);
 
     // Access to low-level driver or fusion engine if needed
     BaseIMUDriver* getDriver() const { return _driver; }

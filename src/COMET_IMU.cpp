@@ -188,7 +188,21 @@ void COMET_IMU::setFusionMode(FusionMode mode) {
     } else if (mode == FUSION_MAHONY) {
         _fusion = new MahonyFilter(2.0f, 0.005f);
         _ownsFusion = true;
+    } else if (mode == FUSION_KALMAN) {
+        _fusion = new KalmanFilter();
+        _ownsFusion = true;
+    } else if (mode == FUSION_COMPLEMENTARY) {
+        _fusion = new ComplementaryFilter(0.98f);
+        _ownsFusion = true;
     }
+}
+
+void COMET_IMU::setCustomFusion(SensorFusion* fusion, bool takeOwnership) {
+    if (_ownsFusion && _fusion) {
+        delete _fusion;
+    }
+    _fusion = fusion;
+    _ownsFusion = takeOwnership;
 }
 
 bool COMET_IMU::update() {

@@ -54,6 +54,16 @@ void setup() {
     imu.setFusionMode(FUSION_MAHONY);
     benchmarkFilter("Mahony AHRS");
 
+    // Benchmark 4: Kalman Filter
+    Serial.println("Testing FUSION_KALMAN mode...");
+    imu.setFusionMode(FUSION_KALMAN);
+    benchmarkFilter("Kalman AHRS");
+
+    // Benchmark 5: Complementary Filter
+    Serial.println("Testing FUSION_COMPLEMENTARY mode...");
+    imu.setFusionMode(FUSION_COMPLEMENTARY);
+    benchmarkFilter("Complementary Filter");
+
     Serial.println("\nStarting continuous streaming in FUSION_AUTO mode:");
     imu.setFusionMode(FUSION_AUTO);
 }

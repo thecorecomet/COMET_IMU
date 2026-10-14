@@ -5,7 +5,7 @@
 [![Architectures](https://img.shields.io/badge/Architectures-ESP32%20%7C%20STM32%20%7C%20AVR%20%7C%20RP2040-blue.svg)](#cross-platform-architecture)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A unified, high-performance C++ IMU library featuring **automatic bus detection (I2C & SPI)**, **on-chip hardware sensor fusion offloading**, fallback **Madgwick & Mahony 6/9-DoF AHRS filters**, and **concurrent multi-IMU orchestration**. Designed for **ESP32**, **STM32**, and **classic Arduino** microcontrollers.
+A unified, high-performance C++ IMU library featuring **automatic bus detection (I2C & SPI)**, **on-chip hardware sensor fusion offloading**, fallback **Madgwick, Mahony, Kalman, and Complementary 6/9-DoF AHRS filters**, and **concurrent multi-IMU orchestration**. Designed for **ESP32**, **STM32**, and **classic Arduino** microcontrollers.
 
 - **Author**: Bhushan Patil ([bhushanshampatil@gmail.com](mailto:bhushanshampatil@gmail.com))
 - **Repository**: [https://github.com/thecorecomet/COMET_IMU.git](https://github.com/thecorecomet/COMET_IMU.git)
@@ -18,8 +18,12 @@ A unified, high-performance C++ IMU library featuring **automatic bus detection 
   Just call `imu.autoDetect(&Wire)` or `imu.autoDetectSPI(csPin)`. The library scans candidate addresses, queries `WHO_AM_I` registers, and automatically binds the proper driver with optimal configuration.
 * **🧠 Inbuilt Hardware Sensor Fusion Offload**:
   Directly reads fused Quaternions, Linear Acceleration, and Gravity from sensors with on-chip processors (e.g., **Bosch BNO055** with internal Cortex-M0 and **BNO080/085** SH-2 sensor hub), utilizing **zero host MCU compute cycles**!
-* **⚡ High-Speed Fallback Software Fusion**:
-  For standard raw IMUs, an optimized **Madgwick** or **Mahony** AHRS filter automatically fuses Gyro, Accel, and Magnetometer vectors with fast inverse square root and drift compensation.
+* **⚡ 4 High-Speed Software Fusion Filters**:
+  For standard raw IMUs, choose between:
+  - **Madgwick AHRS**: Gradient descent algorithm with low computational cost and magnetic distortion compensation.
+  - **Mahony AHRS**: Proportional-integral (PI) observer with gyro drift integration on SO(3).
+  - **Kalman AHRS**: 2-state per-axis linear Kalman filter estimating attitude and gyro zero-rate bias dynamically.
+  - **Complementary Filter**: Classic frequency-splitting filter blending low-pass accelerometer tilt with high-pass integrated gyroscope rates.
 * **🤝 Unified Front-End API**:
   Identical API across every IMU sensor: `getQuaternion()`, `getEuler()`, `getAccel()`, `getGyro()`, `getMag()`, `getLinearAccel()`, `getGravity()`.
 * **🔀 Multi-IMU Orchestration**:
@@ -203,11 +207,16 @@ bool beginSPI(IMUType type, uint8_t csPin, SPIClass* spi = &SPI, const IMUConfig
 ```cpp
 void setFusionMode(FusionMode mode);
 // Modes:
-// FUSION_AUTO      - Automatically offloads to hardware fusion if available, else Madgwick
-// FUSION_HARDWARE  - Enforces on-chip hardware fusion (BNO055, BNO08x, DMP)
-// FUSION_MADGWICK  - High-performance Madgwick 6-DoF / 9-DoF filter
-// FUSION_MAHONY    - High-performance Mahony PI filter
-// FUSION_OFF       - Raw data only
+// FUSION_AUTO          - Automatically offloads to hardware fusion if available, else Madgwick
+// FUSION_HARDWARE      - Enforces on-chip hardware fusion (BNO055, BNO08x, DMP)
+// FUSION_MADGWICK      - High-performance Madgwick 6-DoF / 9-DoF gradient-descent filter
+// FUSION_MAHONY        - High-performance Mahony PI filter on SO(3)
+// FUSION_KALMAN        - 2-state per-axis linear Kalman filter with dynamic gyro bias tracking
+// FUSION_COMPLEMENTARY - Classic complementary filter blending low-pass accel with gyro rate
+// FUSION_OFF           - Raw data only
+
+// Custom fusion injection:
+void setCustomFusion(SensorFusion* fusion, bool takeOwnership = false);
 ```
 
 ### Motion & Orientation Data Access
